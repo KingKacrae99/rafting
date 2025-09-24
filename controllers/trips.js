@@ -1,4 +1,4 @@
-const Err = require('../middlewares/customError');
+const Err = require('../middlewares/customError')
 const db = require('../models/index')
 const fs = require('fs').promises
 const path = require('path')
@@ -67,5 +67,30 @@ const getTripById = async (req,res,next)=>{
   }
 }
 
+/**********************************************
+ * Add Trip Function
+**********************************************/
+const addTrip = async(req,res,next) =>{
+  try {
+    if(!req.body){
+      return next(new Err('No data was provided',400));
+    }
+    const now = new Date()
+    const 
+    const trip = {
+      name: req.body.name,
+      description: req.body.description,
+      location : req.body.location,
+      date: req.body.date,
+      price: req.body.price,
+      difficulty: req.body.difficulty,
+      capacity: req.body.capacity,
+      availableSpots: req.body.availableSpots,
+      createdAt: req.body.createdAt
+    }
+  } catch (error) {
+    
+  }
+}
 
 module.exports = {getTrips, getTripById, readDataToDB};
