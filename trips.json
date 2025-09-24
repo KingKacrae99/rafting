@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Whitewater Adventure",
+    "description": "An exciting 3-day rafting trip with Class III–IV rapids.",
+    "location": "Colorado River, USA",
+    "date": "2025-07-15T09:00:00.000Z",
+    "price": 350.0,
+    "difficulty": "Intermediate",
+    "capacity": 20,
+    "availableSpots": 15,
+    "createdAt": "2025-09-09T10:00:00.000Z",
+    "updatedAt": "2025-09-09T10:00:00.000Z"
+  },
+  {
+    "name": "Beginner Rapids",
+    "description": "A safe and fun rafting trip for families and first-timers.",
+    "location": "Snake River, USA",
+    "date": "2025-08-01T08:30:00.000Z",
+    "price": 150.0,
+    "difficulty": "Beginner",
+    "capacity": 25,
+    "availableSpots": 25,
+    "createdAt": "2025-09-09T10:00:00.000Z",
+    "updatedAt": "2025-09-09T10:00:00.000Z"
+  },
+  {
+    "name": "Extreme Rapids Challenge",
+    "description": "A thrilling 2-day rafting adventure for experienced rafters only.",
+    "location": "Zambezi River, Zambia",
+    "date": "2025-09-20T07:00:00.000Z",
+    "price": 500.0,
+    "difficulty": "Advanced",
+    "capacity": 15,
+    "availableSpots": 10,
+    "createdAt": "2025-09-09T10:00:00.000Z",
+    "updatedAt": "2025-09-09T10:00:00.000Z"
+  }
+]
