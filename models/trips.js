@@ -8,7 +8,10 @@ module.exports = (mongoose) => {
         location : String,  
         date : Date,  
         price : Number,  
-        difficulty : String,  
+        difficulty : {
+          type: String,
+          enum: ['Beginner','Intermediate','Advanced']
+        },  
         capacity: Number,  
         availableSpots : Number,  
         createdAt: Date,
