@@ -20,7 +20,7 @@ const readDataToDB = async (req,res,next) => {
         console.log("Trips Table successfully populated")
         return res.status(200).json(result)
       }
-      return next(new Err('No data inserted', 400))
+      return next(new Err('No data was inserted', 400))
 
     } catch (error) {
         next(error)
@@ -53,7 +53,7 @@ const getTripById = async (req,res,next)=>{
 
     const tripId = req.params.id
     if (!Types.ObjectId.isValid(tripId)){
-      return next(new Err('Invalid trip Id', 404))
+      return next(new Err('Invalid trip Id', 400))
     }
     const  result = await db.trips.findById(tripId)
     if(!result){
@@ -75,8 +75,8 @@ const addTrip = async(req,res,next) =>{
     if(!req.body){
       return next(new Err('No data was provided',400));
     }
-    const now = new Date()
-    const 
+    const currentDate = new Date();
+    const timeStamp = currentDate.toISOString()
     const trip = {
       name: req.body.name,
       description: req.body.description,
@@ -86,11 +86,94 @@ const addTrip = async(req,res,next) =>{
       difficulty: req.body.difficulty,
       capacity: req.body.capacity,
       availableSpots: req.body.availableSpots,
-      createdAt: req.body.createdAt
+      createdAt: timeStamp,
+      updatedAt: null
+    };
+    const result = await db.trips.create(trip);
+    if(result){
+      return res.status(200).json({
+        status: 'success',
+        message: 'Trip successfully added',
+        result,
+      })
     }
-  } catch (error) {
-    
+    return next(new Err('Add trip process failed', 400))
+  } catch (err) {
+    next(err)
   }
 }
 
-module.exports = {getTrips, getTripById, readDataToDB};
+/******************************************
+ *  Update Trip by Id
+*******************************************/
+const updateTripById = async(req,res,next) => {
+  try {
+    const tripId = req.params.id;
+    if(!Types.ObjectId.isValid(tripId)){
+      return next(new Err('Invalid trip ID', 400))
+    }
+    // retrieve data 
+    const data = await db.trips.findById(tripId);
+
+    if( data){
+      const currentDate = new Date();
+      const timeStamp = currentDate.toISOString()
+
+      const trip = {
+        name: req.body.name,
+        description: req.body.description,
+        location : req.body.location,
+        date: req.body.date,
+        price: req.body.price,
+        difficulty: req.body.difficulty,
+        capacity: req.body.capacity,
+        availableSpots: req.body.availableSpots,
+        createdAt: data.createdAt,
+        updatedAt: timeStamp
+      }
+
+      // update retrieved data
+      const result = await db.trips.replaceOne({_id: tripId},trip)
+      if ( result.modifiedCount === 0){
+        return next(new Err('Update process failed', 400))
+      }
+      return res.status(200).json({
+        status: 'success',
+        message: 'Trip updated successfully',
+        result,
+      })
+    }
+
+    return next(new Err('Trip has been deleted or does not exist.', 404));
+
+  } catch (err) {
+    next(err)
+  }
+}
+
+/*******************************************
+ * Delete Trip by Id
+********************************************/
+const deleteTripById = async(req,res,next) => {
+  try {
+    const tripId = req.params.id
+    if (!Types.ObjectId.isValid(tripId)){
+      return next(new Err('Invalid trip ID',400))
+    }
+    const result = await db.trips.findByIdAndDelete(tripId)
+    if(!result){
+      return next(new Err('Trip not found or has already been deleted',404))
+    } 
+    return res.status(200).json({
+      status: 'Successful',
+      result: result,
+      message: "Trip deleted successfully"
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
+module.exports = {getTrips, getTripById,
+   readDataToDB, addTrip,
+    updateTripById, deleteTripById};
