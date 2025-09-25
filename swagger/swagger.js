@@ -5,8 +5,8 @@ const doc = {
     title: 'Rafting API',
     description: 'Water Rafting Web Services'
   },
-  host: 'https://water-rafting.onrender.com',
-  schemes : ['https']
+  host: 'localhost:5500',
+  schemes : ['http', 'https']
 };
 
 const outputFile = '../swagger/swagger.json';
