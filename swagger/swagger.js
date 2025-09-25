@@ -5,7 +5,7 @@ const doc = {
     title: 'Rafting API',
     description: 'Water Rafting Web Services'
   },
-  host: 'localhost:5500',
+  host: 'https://water-rafting.onrender.com',
   schemes : ['https']
 };
 
