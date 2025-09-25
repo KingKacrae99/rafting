@@ -1,0 +1,31 @@
+### Create a Trip
+POST http://localhost:5500/trips/add
+Content-Type: application/json
+
+{
+  "name": "River Nile Adventure",
+  "description": "A thrilling rafting trip on the Nile River.",
+  "location": "Uganda",
+  "date": "2025-09-10T09:00:00.000Z",
+  "price": 250,
+  "difficulty": "Intermediate",
+  "capacity": 20,
+  "availableSpots": 18,
+  "createdAt": "2025-09-02T12:00:00.000Z",
+  "updatedAt": "2025-09-02T12:00:00.000Z"
+}
+
+###
+PUT http://localhost:5500/trips/edit/68d41f67c877877206325daa
+Content-Type: application/json
+
+{
+    "name": "Whitewater Adventure",
+    "description": "An exciting 3-day rafting trip with Class III–IV rapids.",
+    "location": "Colorado River, USA",
+    "date": "2025-07-15T09:00:00.000Z",
+    "price": 350,
+    "difficulty": "Intermediate",
+    "capacity": 20,
+    "availableSpots": 15
+  }

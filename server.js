@@ -1,34 +1,41 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const main = require('./config/connection')
-const router = require('./routes/index')
 const errorMiddleware = require('./middlewares/errors')
+const main = require('./config/connection')
+const cors = require('cors');
 const app = express();
+const bodyParser = require('body-parser');
+const router = require('./routes/index')
 require('dotenv').config()
 
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
-
-/************************************
- * Middleware
-*************************************/
-app.use(async (err,req,res,next) => {
-    next({status: 404, message:"Sorry, it looks like we've lost track!"})
-});
-app.use(errorMiddleware);
 
 /************************************
  *  Routes
  ***********************************/
 app.use('/', router)
 
+
+/************************************
+ * Middleware
+*************************************/
+app.use(async (req,res,next) => {
+    next({status: 404, message:"Sorry, it looks like we've lost track!"})
+});
+
+app.use(errorMiddleware);
+
+
+
 const port = process.env.PORT;
 
 /****************************************
  * Calling Mongodb connection func
 ****************************************/
-main().catch(err => { console.log(err)});
+main().catch(err => { console.log(err) });
+
 
 /******************************************************
  * Server event listener

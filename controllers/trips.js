@@ -55,9 +55,9 @@ const getTripById = async (req,res,next)=>{
     if (!Types.ObjectId.isValid(tripId)){
       return next(new Err('Invalid trip Id', 400))
     }
-    const  result = await db.trips.findById(tripId)
+    const result = await db.trips.findById(tripId)
     if(!result){
-      next(new Err('Data not found', 404))
+      return next(new Err('Data not found', 404))
     }
 
     // return's pnly the document
