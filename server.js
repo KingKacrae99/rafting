@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const router = require('./routes/index')
 require('dotenv').config()
-
+const Err = require('./middlewares/customError')
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -22,7 +22,7 @@ app.use('/', router)
  * Middleware
 *************************************/
 app.use(async (req,res,next) => {
-    next({status: 404, message:"Sorry, it looks like we've lost track!"})
+    next(new Err("Sorry, it looks like we've lost track!",404))
 });
 
 app.use(errorMiddleware);
