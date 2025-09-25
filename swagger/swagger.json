@@ -5,18 +5,10 @@
     "description": "Water Rafting Web Services",
     "version": "1.0.0"
   },
-  "host": "localhost:5500",
+  "host": "water-rafting.onrender.com",
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": ["https"],
   "paths": {
-    "/api": {
-      "get": {
-        "description": "Check API docs",
-        "responses": {
-          "200": { "description": "OK" }
-        }
-      }
-    },
     "/": {
       "get": {
         "description": "Root endpoint",
