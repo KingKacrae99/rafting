@@ -6,7 +6,7 @@ const doc = {
     description: 'Water Rafting Web Services'
   },
   host: 'localhost:5500',
-  schemes : ['http', 'https']
+  schemes : ['https']
 };
 
 const outputFile = '../swagger/swagger.json';
