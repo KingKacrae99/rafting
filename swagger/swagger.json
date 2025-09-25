@@ -5,7 +5,7 @@
     "description": "Water Rafting Web Services",
     "version": "1.0.0"
   },
-  "host": "https://water-rafting.onrender.com",
+  "host": "water-rafting.onrender.com",
   "basePath": "/",
   "schemes": ["https"],
   "paths": {
