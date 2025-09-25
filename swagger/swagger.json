@@ -5,43 +5,47 @@
     "description": "Water Rafting Web Services",
     "version": "1.0.0"
   },
-  "host": "water-rafting.onrender.com",
+  "host": "localhost:5500",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": ["http", "https"],
   "paths": {
+    "/api": {
+      "get": {
+        "description": "Check API docs",
+        "responses": {
+          "200": { "description": "OK" }
+        }
+      }
+    },
     "/": {
       "get": {
-        "description": "",
+        "description": "Root endpoint",
         "responses": {
-          "200": {
-            "description": "OK"
-          }
+          "200": { "description": "OK" }
         }
       }
     },
     "/trips/": {
       "get": {
-        "description": "",
+        "description": "Get all trips",
         "responses": {
-          "200": {
-            "description": "OK"
-          }
+          "200": { "description": "List of trips returned successfully" },
+          "500": { "description": "Server error" }
         }
       }
     },
     "/trips/create": {
       "post": {
-        "description": "",
+        "description": "Load trips from file into DB",
         "responses": {
-          "default": {
-            "description": ""
-          }
+          "201": { "description": "Trips loaded successfully" },
+          "500": { "description": "Server error" }
         }
       }
     },
     "/trips/{id}": {
       "get": {
-        "description": "",
+        "description": "Get a trip by ID",
         "parameters": [
           {
             "name": "id",
@@ -51,43 +55,55 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
-          }
+          "200": { "description": "Trip returned successfully" },
+          "404": { "description": "Trip not found" }
         }
       }
     },
     "/trips/add": {
       "post": {
-        "description": "",
-        "responses": {
-          "400": {
-            "description": "Bad Request"
+        "description": "Add a new trip",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Trip" }
           }
+        ],
+        "responses": {
+          "201": { "description": "Trip created successfully" },
+          "400": { "description": "Bad Request" }
         }
       }
     },
     "/trips/edit/{id}": {
       "put": {
-        "description": "",
+        "description": "Update an existing trip",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": { "$ref": "#/definitions/Trip" }
           }
         ],
         "responses": {
-          "400": {
-            "description": "Bad Request"
-          }
+          "200": { "description": "Trip updated successfully" },
+          "400": { "description": "Bad Request" },
+          "404": { "description": "Trip not found" }
         }
       }
     },
     "/trips/delete/{id}": {
       "delete": {
-        "description": "",
+        "description": "Delete a trip",
         "parameters": [
           {
             "name": "id",
@@ -97,11 +113,26 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
-          }
+          "200": { "description": "Trip deleted successfully" },
+          "404": { "description": "Trip not found" }
         }
       }
+    }
+  },
+  "definitions": {
+    "Trip": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "location": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "price": { "type": "number" },
+        "difficulty": { "type": "string", "enum": ["Beginner", "Intermediate", "Advanced"] },
+        "capacity": { "type": "integer" },
+        "availableSpots": { "type": "integer" }
+      },
+      "required": ["name", "location", "date", "price"]
     }
   }
 }
