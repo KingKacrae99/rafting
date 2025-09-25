@@ -3,7 +3,7 @@ const tripController = require('../controllers/trips')
 const utils = require('../utilities/index')
 const validator =require('../utilities/validation')
 
-router.get('/', tripController.getTrips);
+router.get('/',utils.errorHandler(tripController.getTrips));
 router.post('/create', utils.errorHandler(tripController.readDataToDB))
 router.get('/:id',  utils.errorHandler(tripController.getTripById))
 router.post('/add', validator.tripRules(), validator.validateResult, utils.errorHandler(tripController.addTrip))
